@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="stylesheet" type="text/css" href="/css/front.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#signup").hide();
+			$("#login").show();
+			
+
+		$("#signup_button").click(function(){
+		    $("#signup").toggle();
+		    $("#login").hide();
+		});
+
+		$("#login_button").click(function(){
+		    $("#login").toggle();
+		    $("#signup").hide();
+
+		});
+			}); 
+	</script>
+</head>
+<body>
+
+
+<div class="header">
+	<img src="/image/logo.png">
+	<h1>&pi;wire</h1>
+</div>
+
+<div class="container">
+	
+	<div class="top_button">
+		<a href="/devpage" id="mqtt_redirect">Check mqtt broker (For developers)</a>
+	</div>
+
+  <div class="content">
+
+	<div class="user_access">
+		<div class="inline"> <a id="signup_button">New user? Register with our platform</a> </div>
+		<div class="inline"> <a id="login_button">Already Registered? Login now</a> </div>
+		 <!-- Facebook code here -->
+	</div>
+	<div class="facebook">
+		 <div class="inline-facebook"><a id="login-facebook" href="/auth/facebook"><img src='/image/login-facebook.png' height="45px" width="280px"></a></div>
+	</div>
+            <!-- show any messages that come back with authentication -->
+		<div id="signup" class="form" align="center">
+		    <% if (message.length > 0) { %>
+	            <div class="error">
+	            	<%= message %>
+	            </div>
+	        <% } %>
+			<form id="signup_form" action="/signup" method="post">
+				<table>
+					<tr>
+		 				<td><label for="Name">Your Name:</label></td>
+						<td colspan="2"><input type="text" name="Name" id="Name" placeholder="Full Name" required></td>
+					</tr>
+					<tr>
+						<td><label for="Email"> Email:</label></td>
+						<td colspan="2"><input type="email" name="Email" id="Email" placeholder="something@something.com" required></td>
+					</tr>
+					<tr>
+						<td><label for="Password">Password:</label></td>
+						<td colspan="2"><input type="password" name="Password" id="Password" required></td>
+					</tr>
+					<tr>
+						<td><label for="CPassword">Confirm Password:</label></td>
+						<td colspan="2"><input type="password" name="CPassword" id="CPassword" required></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" class="submit" value="Signup"></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+		<div id="login" class="form" align="center">
+		    <% if (message.length > 0) { %>
+	            <div class="error">
+	            	<%= message %>
+	            </div>
+	        <% } %>
+			<form id="login_form" action="/login" method="post">
+				<table>
+					<tr>
+						<td><label for="Email"> Email:</label></td>
+						<td colspan="2"><input type="email" name="Email" id="Email_log" placeholder="something@something.com" required></td>
+					</tr>
+					<tr>
+						<td><label for="Password">Password:</label></td>
+						<td colspan="2"><input type="password" name="Password" id="Password_log" required></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" class="submit" value="Login"></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+
+<footer>
+	<div class="foot">
+		<p>© All Rights Reserved, 2017</p>
+		<p>TenPi Technologies Private Limited.</p>
+	</div>
+</footer>
+</body>
+</html> 

@@ -1,0 +1,245 @@
+<html>
+<head>
+   <script type="text/javascript" src="ejs_production.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <link rel = "stylesheet" type = "text/css" href = "/css/pubsub.css" />
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+	
+	<h1 id="heading">MQTT Client</h1>
+
+<!-- for tabs -->
+  
+  <div class="tabs">
+  	<a href="/logout"><button class="logout"><img src='/image/exit-button-hig.png'></button></a>
+    <button class="tablink" id="tabsub" style="background-color:#00795f">Subscribe</button>
+    <button class="tablink" id="tabpub">Publish</button>
+    <button class="tablink" id="tabstat">Status</button>
+    <div class="containid">
+    	<div class="tabsspan">
+    		<span id="containtext" onClick="CopyToClipboard();">Client ID: <%= client %></span>
+    	</div>
+    	<script type="text/javascript">
+			function CopyToClipboard() {
+			if (document.selection) { 
+			    var range = document.body.createTextRange();
+			    range.moveToElementText(document.getElementById("containtext"));
+			    range.select().createTextRange();
+			    document.execCommand("copy"); 
+
+			} else if (window.getSelection) {
+			    var range = document.createRange();
+			    range.selectNode(document.getElementById("containtext"));
+			    window.getSelection().addRange(range);
+			    document.execCommand("copy");
+			}}
+    	</script>
+	</div>
+  </div>
+<!-- for subscribe -->
+ 
+ <div class="tabcontent" id="sub">
+   
+  <div class="info">
+
+    <h2><%= data %></h2>
+    <hr class="mainhr">
+     <form method="POST" action="/pubsub" id="candidateform">
+      <label for="topic name">Topic Name:</label>
+      <input type="text" name="topic" placeholder="topic"><br>
+      <table>
+       <tr>
+            <td>QoS:</td>
+            <td>
+            <select name="qos">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select> 
+            </td>            
+        </tr>
+        </table>  
+      <input type="submit" class="submit" name="submitbut" value="Subscribe"/>  
+    </form>
+    <hr>
+    <h4>Subscribed to:</h4>
+    
+      <form method="post" action="/pubsub" id="topicform" >
+      <input type="hidden" id="hidetopic" name="hidetopic" value="">    
+      <table class="datatable">
+      <%for (topic in topics){ %>
+        <tr>
+          <span id="topics"><%= topics[topic] %><button type="submit" class="deltopic" name="submitbut" id="<%= topics[topic] %>" value="Delete"><img src='/image/cross.png' height="10px" width="10px"></button></span>
+        <% } %>
+		    </tr>
+      </table>
+      </form>
+  <hr>
+    <table class="datatable">
+      <thead>
+        <tr>
+          <th class="headingmsgs">Topic</th><th id="msgoverflowtitle">Message</th><th class="headingmsgs">Time</th><th><button type="submit" class="deltopic" name="submitbut" id="delmessage" form="topicform" value="Delete"><img src='/image/cross.png' height="10px" width="10px"></button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%for (msg in messages){ %>
+        <tr>
+          <td class="headingmsgsdata" id="l1"><%= messages[msg][0] %></td><td><div id="msgoverflow"><%= messages[msg][1] %></div></td><td class="headingmsgsdata" id="l2"><%= messages[msg][2] %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+ </div>
+
+ <!-- for publish -->
+
+
+  <div class="tabcontent" id="pub">
+  	<div class="info">
+    <h2>Publish</h2>
+    <hr>
+    <form method="POST" action="/pubsub" id="candidateform">
+      <label for="topic name">Topic Name:</label>
+      <input type="text" name="topicpub" placeholder="topic"> <br>    
+      <label for="payload">Payload:</label>
+      <input type="text" name="payloadpub" id="payload" placeholder="payload"> <br>
+      <table>
+       <tr>
+            <td>QoS:</td>
+            <td>
+            <select name="qos">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select> 
+            </td>            
+        </tr>
+        <tr>
+            <td>Retain:</td>
+            <td>
+            <select name="retain">
+              <option value="0">No</option>
+              <option value="1">Yes</option>              
+            </select> 
+            </td>            
+        </tr>
+        </table>    
+      <input type="submit" class="submit" id="publishclick" name="submitbut" value="Publish"/>
+    </form>
+   </div>
+  </div>
+  
+<!-- for status -->
+
+  <div class="tabcontent" id="stat">
+  <div class="info">
+    <h2>Status</h2>
+    <hr>
+    <table class="datatable">
+      <thead>
+        <tr>
+          <th class="headingmsgs">Topic</th><th id="msgoverflowtitle">Message</th><th class="headingmsgs">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%for (topic in lastmessages){ %>
+        <tr>
+          <td class="headingmsgsdata"><%= topic %></td><td id="msgoverflow"><%= lastmessages[topic][0] %></td><td class="headingmsgsdata"><%= lastmessages[topic][1] %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  
+
+  <script type="text/javascript">
+
+    $('.tablink').on('click', function(e){
+        
+        if(this.id=='tabsub')
+        {       
+          $('#sub').hide();
+          $('#pub').hide();
+          $('#stat').hide();
+          $('#sub').show();
+          $('#tabsub').css('background-color', '#00795f');
+          $('#tabpub').css('background-color', '#555');
+          $('#tabstat').css('background-color', '#555');
+        }
+        if(this.id=='tabpub')
+        {
+          $('#sub').hide();
+          $('#pub').hide();
+          $('#stat').hide();
+          $('#pub').show();
+          $('#tabpub').css('background-color', '#00795f');
+          $('#tabsub').css('background-color', '#555');
+          $('#tabstat').css('background-color', '#555');
+        }
+        if(this.id=='tabstat')
+        {
+          $('#sub').hide();
+          $('#pub').hide();
+          $('#stat').hide();
+          $('#stat').show();
+          $('#tabstat').css('background-color', '#00795f');
+          $('#tabpub').css('background-color', '#555');
+          $('#tabsub').css('background-color', '#555');
+        }
+    });
+    $('.deltopic').on('click', function(e){
+      if($('#hidetopic').val()=="")
+      {
+        e.preventDefault();
+        $('#hidetopic').val(this.id);
+        $('#'+this.id).click();
+      }
+      
+    });
+    
+  $(function(){
+     var scroll_text;
+     if($('div.tabsspan span').width() > $('div.containid').width()){
+  		$('div.containid').hover(
+      		function () {
+          		var $elmt = $(this);
+          		scroll_text = setInterval(function(){scrollText($elmt);}, 0.5);
+      		},
+      		function () {
+          		clearInterval(scroll_text);
+          		$(this).find('div.tabsspan span').css({
+              	left: 0
+          	});
+      		}
+  		);
+  	}
+      
+    var scrollText = function($elmt){
+        var left = $elmt.find('div.tabsspan span').position().left - 0.4;
+        left = -left > $elmt.find('div.tabsspan span').width() ? $elmt.find('div.tabsspan').width() : left;
+        $elmt.find('div.tabsspan span').css({
+            left: left
+        });
+    };
+  });
+</script>
+<script type="text/javascript">
+  setInterval(function()
+  { $.ajax({
+      type: "POST",
+      url: "/check",
+      asyn: true,
+      dataType: "html",
+      success: function(data){
+        if(data) {
+          location.reload();
+        }
+    }
+  });
+}, 5000);//time in milliseconds
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<html>
+<head>
+   <script type="text/javascript" src="ejs_production.js"></script>
+   <link rel="stylesheet" type="text/css" href="/css/modal.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+
+<body>
+
+      <h1 id="heading">MQTT Client</h1>
+      
+      <div class="modal">
+        <div class="modal-header">
+              <h2><%= data %></h2>
+        </div>
+        
+        <div class="modal-body">
+          <form method="POST" action="/devpage" id="candidateform">
+                  <h3>Settings</h3>
+                    <label for="Protocol">Protocol:</label>
+                      <select name="protocol" required>
+                        <option value="tcp://">TCP</option>
+                        <option value="tls://">TLS</option>
+                        <option value="ws://">WS</option>
+                        <option value="wss://">WSS</option>
+                      </select><br><br>
+                    <label for="Host">Host:</label>
+                      <input type="text" name="host" placeholder="Host" id="host" required/><br>
+                    <label for="Port">Port:</label>
+                      <input type="text" name="port" placeholder="Port" id="port" required/><br>
+                    <label for="Username">Username:</label>
+                      <input type="text" name="user" placeholder="Username"  id="username" required/><br>
+                    <label for="Password">Password:</label>
+                      <input type="password" name="password" placeholder="Password" id="password" required/><br>
+                    <label for="clientid">Client ID:</label>
+                      <input type="text" name="clientid" placeholder="Client ID" id="clientid"/><br>
+                      <input type="submit" value="Submit" id="submit" />
+          </form>
+        </div>
+          <br>
+          <div class="modal-footer">
+            <h2>TenPi Tech</h2>
+          </div>
+          
+          <div id="transparent"></div>
+      
+      </div>
+
+</body>
+</html>
