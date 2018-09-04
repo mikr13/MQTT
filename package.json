@@ -1,0 +1,40 @@
+{
+  "name": "mqtt",
+  "version": "1.5.2",
+  "description": "A small project to leverage mqtt protocol",
+  "main": "mqttc.js",
+  "scripts": {
+    "test": "node mqttc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiKr13/MQTT.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Mihir Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MiKr13/MQTT/issues"
+  },
+  "homepage": "https://github.com/MiKr13/MQTT#readme",
+  "dependencies": {
+    "mysql": "*",
+    "qs": "*",
+    "ejs": "*",
+    "express": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "mqtt": "*",
+    "morgan": "*",
+    "passport": "*",
+    "bcrypt-nodejs": "*",
+    "bcrypt-pbkdf": "*",
+    "express-session": "*",
+    "passport-local": "*",
+    "passport-facebook": "*",
+    "flash": "*",
+    "connect-flash": "*"
+  }
+}
