@@ -21,7 +21,7 @@
   "homepage": "https://github.com/MiKr13/MQTT#readme",
   "dependencies": {
     "mysql": "*",
-    "qs": "*",
+    "qs": "6.9.4",
     "ejs": "*",
     "express": "*",
     "body-parser": "*",
