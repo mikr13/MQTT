@@ -23,7 +23,7 @@
     "mysql": "*",
     "qs": "*",
     "ejs": "*",
-    "express": "*",
+    "express": "4.17.1",
     "body-parser": "*",
     "cookie-parser": "*",
     "mqtt": "*",
