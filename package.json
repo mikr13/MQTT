@@ -31,7 +31,7 @@
     "passport": "*",
     "bcrypt-nodejs": "*",
     "bcrypt-pbkdf": "*",
-    "express-session": "*",
+    "express-session": "1.17.1",
     "passport-local": "*",
     "passport-facebook": "*",
     "flash": "*",
