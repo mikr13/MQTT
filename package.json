@@ -22,7 +22,7 @@
   "dependencies": {
     "mysql": "*",
     "qs": "*",
-    "ejs": "*",
+    "ejs": "2.7.4",
     "express": "*",
     "body-parser": "*",
     "cookie-parser": "*",
