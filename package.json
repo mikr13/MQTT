@@ -28,7 +28,7 @@
     "cookie-parser": "*",
     "mqtt": "*",
     "morgan": "*",
-    "passport": "*",
+    "passport": "0.4.1",
     "bcrypt-nodejs": "*",
     "bcrypt-pbkdf": "*",
     "express-session": "*",
