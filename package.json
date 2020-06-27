@@ -27,7 +27,7 @@
     "body-parser": "*",
     "cookie-parser": "*",
     "mqtt": "*",
-    "morgan": "*",
+    "morgan": "1.10.0",
     "passport": "*",
     "bcrypt-nodejs": "*",
     "bcrypt-pbkdf": "*",
