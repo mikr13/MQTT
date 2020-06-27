@@ -25,7 +25,7 @@
     "ejs": "*",
     "express": "*",
     "body-parser": "*",
-    "cookie-parser": "*",
+    "cookie-parser": "1.4.5",
     "mqtt": "*",
     "morgan": "*",
     "passport": "*",
